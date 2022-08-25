@@ -13,3 +13,4 @@ class Party(db.Model):
     tags = db.relationship('PartyTag', cascade='all')
     sexes = db.relationship('PartySex', cascade='all')
     users = db.relationship('PartyUser', cascade='all')
+    location = db.relationship('Location', cascade='all')

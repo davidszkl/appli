@@ -3,5 +3,5 @@ from app.models.location import Location
 class LocationDTO():
 
     @staticmethod
-    def entityToDTO(location: Location):
+    def entityToJSON(location: Location):
         return {key : val for key, val in location.__dict__.items() if key not in  ["_sa_instance_state", "locationidS"]}

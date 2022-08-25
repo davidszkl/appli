@@ -1,7 +1,7 @@
 from app.models.user import  User
 from app.dtos.sexDto import  SexDTO
 from app.dtos.locationDto import LocationDTO
-from app.dtos.tagDTO import  TagDTO
+from app.dtos.tagDto import TagDTO
 
 class UserDTO():
 
