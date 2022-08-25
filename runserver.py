@@ -1,4 +1,4 @@
-from app import app
+from backend import app
 import os
 
 port = int(os.environ.get('PORT', 8080))
