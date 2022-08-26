@@ -3,6 +3,7 @@ import UserRegisterForm from './user_register_form';
 import UserInfoForm from './user_info_form';
 import UserAddressForm from './user_address_form';
 import axios from 'axios';
+import NavBar from './navbar';
 
 const Controller = ({onRegisterUser}) => {
     const [stage, setStage] = useState("register");
@@ -56,9 +57,11 @@ const Controller = ({onRegisterUser}) => {
 
     return (
         <>
+            <NavBar/>
             {stage === "register" ? <UserRegisterForm onRegisterForm={onRegisterForm}/> :
              stage === "info" ? <UserInfoForm onInfoForm={onInfoForm}/> :
-             <UserAddressForm onAddressForm={onAddressForm}/>}
+             stage === "address" ? <UserAddressForm onAddressForm={onAddressForm}/> :
+             ""}
         </>
     );
 }

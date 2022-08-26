@@ -7,7 +7,7 @@ const UserAddressForm = ({onAddressForm}) => {
     const [nbr, setNbr] = useState('');
     const [zip, setZip] = useState('');
     const [county, setCounty] = useState('');
-    const [country, setCountry] = useState('');
+    const [country, setCountry] = useState('Belgium');
     
 
     const handleSubmit = (e) => {
@@ -283,7 +283,7 @@ const UserAddressForm = ({onAddressForm}) => {
                             <div className="col-3">
                                 <label htmlFor="addressstreet" className="form-label">Street</label>
                             </div>
-                            <div className="col-9">
+                            <div className="col-7">
                                 <input type="text" name="addressstreet" className="form-control" placeholder="street"
                                 value={street} onChange={(e) => {setStreet(e.target.value);}} required/>
                             </div>
@@ -292,7 +292,7 @@ const UserAddressForm = ({onAddressForm}) => {
                             <div className="col-3">
                                 <label htmlFor="addressnbr" className="form-label">nr°</label>
                             </div>
-                            <div className="col-3">
+                            <div className="col-4">
                                 <input type="number" name="addressnbr" className="form-control" placeholder="24"
                                 value={nbr} onChange={(e) => {setNbr(e.target.value);}} required/>
                             </div>
@@ -301,7 +301,7 @@ const UserAddressForm = ({onAddressForm}) => {
                             <div className="col-3">
                                 <label htmlFor="addresszip" className="form-label">Zip</label>
                             </div>
-                            <div className="col-3">
+                            <div className="col-4">
                                 <input type="number" name="addresszip" className="form-control" placeholder="1234"
                                 value={zip} onChange={(e) => {setZip(e.target.value);}} required/>
                             </div>
@@ -310,7 +310,7 @@ const UserAddressForm = ({onAddressForm}) => {
                             <div className="col-3">
                                 <label htmlFor="addresscounty" className="form-label">County</label>
                             </div>
-                            <div className="col-9">
+                            <div className="col-7">
                                 <input type="text" name="addresscounty" className="form-control" placeholder="county"
                                 value={county} onChange={(e) => {setCounty(e.target.value);}} required/>
                             </div>
@@ -319,7 +319,7 @@ const UserAddressForm = ({onAddressForm}) => {
                             <div className="col-3">
                                 <label htmlFor="addresscountry" className="form-label">country</label>
                             </div>
-                            <div className="col-4">
+                            <div className="col-5">
                                 <select type="select" name="addresscountry" className="form-control" placeholder="country"
                                 value={country} onChange={(e) => {setCountry(e.target.value);}} required>
                                     <Optionlist options={countries}/>
