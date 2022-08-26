@@ -1,6 +1,6 @@
 from flask import jsonify
-from backend.models.party import Party
-from backend.dtos.partyDto import PartyDTO
+from app.models.party import Party
+from app.dtos.partyDto import PartyDTO
 
 class PartyService:
     def find_all(self):

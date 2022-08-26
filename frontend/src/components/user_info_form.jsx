@@ -3,12 +3,12 @@ import style from "./register_form.module.css"
 import Optionlist from "./option_list"
 
 const UserInfoForm = ({onInfoForm}) => {
-    const [sex, setSex] = useState('')
-    const [age, setAge] = useState('')
+    const [sex, setSex] = useState('Male')
+    const [age, setAge] = useState('18')
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onInfoForm({"age": age, "sex": sex});
+        onInfoForm({"userage": age, "usersex": sex});
     }
 
     const sexes = [
@@ -28,22 +28,22 @@ const UserInfoForm = ({onInfoForm}) => {
                     <div>
                         <div className="row mb-2">
                             <div className="col-2">
-                                <label htmlFor="sex" className="form-label">Sex</label>
+                                <label htmlFor="usersex" className="form-label">Sex</label>
                             </div>
                             <div className="col-4">
-                                <select type="select" name="sex" className="form-control" placeholder="sex"
-                                value={sex} onChange={(e) => {setSex(e.target.value);}}>
+                                <select type="select" name="usersex" className="form-control" placeholder="sex"
+                                value={sex} onChange={(e) => {setSex(e.target.value);}} required>
                                     <Optionlist options={sexes}/>
                                 </select>
                             </div>
                         </div>
                         <div className="row mb-4">
                             <div className="col-2">
-                                <label htmlFor="age" className="form-label">Age</label>
+                                <label htmlFor="userage" className="form-label">Age</label>
                             </div>
                             <div className="col-3">
-                                <input type="number" name="age" className="form-control" placeholder="18"
-                                value={age} onChange={(e) => {setAge(e.target.value);}}/>
+                                <input type="number" name="userage" className="form-control" placeholder="18"
+                                value={age} onChange={(e) => {setAge(e.target.value);}} required/>
                             </div>
                         </div>
                         <div className="row">

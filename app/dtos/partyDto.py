@@ -1,9 +1,9 @@
-from backend.models.party import Party
-from backend.dtos.sexDto import  SexDTO
-from backend.dtos.locationDto import LocationDTO
-from backend.dtos.tagDto import TagDTO
-from backend.dtos.datetimeDto import DateTimeDTO
-from backend.dtos.timeDto import TimeDTO
+from app.models.party import Party
+from app.dtos.sexDto import  SexDTO
+from app.dtos.locationDto import LocationDTO
+from app.dtos.tagDto import TagDTO
+from app.dtos.datetimeDto import DateTimeDTO
+from app.dtos.timeDto import TimeDTO
 
 class PartyDTO():
 

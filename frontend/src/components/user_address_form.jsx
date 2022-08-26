@@ -13,7 +13,7 @@ const UserAddressForm = ({onAddressForm}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         onAddressForm({
-            "street": street, "nbr": nbr, "zip": zip, "county": county, "country": country});
+            "addressstreet": street, "addressnbr": nbr, "addresszip": zip, "addresscounty": county, "addresscountry": country});
     }
 
     const countries = [
@@ -281,47 +281,47 @@ const UserAddressForm = ({onAddressForm}) => {
                     <div>
                         <div className="row mb-2">
                             <div className="col-3">
-                                <label htmlFor="street" className="form-label">Street</label>
+                                <label htmlFor="addressstreet" className="form-label">Street</label>
                             </div>
                             <div className="col-9">
-                                <input type="text" name="street" className="form-control" placeholder="street"
-                                value={street} onChange={(e) => {setStreet(e.target.value);}}/>
+                                <input type="text" name="addressstreet" className="form-control" placeholder="street"
+                                value={street} onChange={(e) => {setStreet(e.target.value);}} required/>
                             </div>
                         </div>
                         <div className="row mb-2">
                             <div className="col-3">
-                                <label htmlFor="nbr" className="form-label">nr°</label>
+                                <label htmlFor="addressnbr" className="form-label">nr°</label>
                             </div>
                             <div className="col-3">
-                                <input type="number" name="nbr" className="form-control" placeholder="24"
-                                value={nbr} onChange={(e) => {setNbr(e.target.value);}}/>
-                            </div>
-                        </div>
-                        <div className="row mb-2">
-                            <div className="col-3">
-                                <label htmlFor="zip" className="form-label">Zip</label>
-                            </div>
-                            <div className="col-3">
-                                <input type="number" name="zip" className="form-control" placeholder="1234"
-                                value={zip} onChange={(e) => {setZip(e.target.value);}}/>
+                                <input type="number" name="addressnbr" className="form-control" placeholder="24"
+                                value={nbr} onChange={(e) => {setNbr(e.target.value);}} required/>
                             </div>
                         </div>
                         <div className="row mb-2">
                             <div className="col-3">
-                                <label htmlFor="county" className="form-label">County</label>
+                                <label htmlFor="addresszip" className="form-label">Zip</label>
+                            </div>
+                            <div className="col-3">
+                                <input type="number" name="addresszip" className="form-control" placeholder="1234"
+                                value={zip} onChange={(e) => {setZip(e.target.value);}} required/>
+                            </div>
+                        </div>
+                        <div className="row mb-2">
+                            <div className="col-3">
+                                <label htmlFor="addresscounty" className="form-label">County</label>
                             </div>
                             <div className="col-9">
-                                <input type="text" name="county" className="form-control" placeholder="county"
-                                value={county} onChange={(e) => {setCounty(e.target.value);}}/>
+                                <input type="text" name="addresscounty" className="form-control" placeholder="county"
+                                value={county} onChange={(e) => {setCounty(e.target.value);}} required/>
                             </div>
                         </div>
                         <div className="row mb-4">
                             <div className="col-3">
-                                <label htmlFor="country" className="form-label">country</label>
+                                <label htmlFor="addresscountry" className="form-label">country</label>
                             </div>
                             <div className="col-4">
-                                <select type="select" name="country" className="form-control" placeholder="country"
-                                value={country} onChange={(e) => {setCountry(e.target.value);}}>
+                                <select type="select" name="addresscountry" className="form-control" placeholder="country"
+                                value={country} onChange={(e) => {setCountry(e.target.value);}} required>
                                     <Optionlist options={countries}/>
                                 </select>
                             </div>

@@ -9,7 +9,7 @@ const UserRegisterForm = ({onRegisterForm}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onRegisterForm({"email": email, "username": username, "password": password, "confirm": confirm});
+        onRegisterForm({"useremail": email, "username": username, "userpassword": password, "userconfirm": confirm});
     }
 
     return (
@@ -23,11 +23,11 @@ const UserRegisterForm = ({onRegisterForm}) => {
                     <div>
                         <div className="row mb-2">
                             <div className="col-3">
-                                <label htmlFor="email" className="form-label">E-mail</label>
+                                <label htmlFor="useremail" className="form-label">E-mail</label>
                             </div>
                             <div className="col-9">
-                                <input type="text" name="email" className="form-control" placeholder="example@gmail.com"
-                                value={email} onChange={(e) => {setEmail(e.target.value);}}/>
+                                <input type="text" name="useremail" className="form-control" placeholder="example@gmail.com"
+                                value={email} onChange={(e) => {setEmail(e.target.value);}} required/>
                             </div>
                         </div>
                         <div className="row mb-2">
@@ -36,25 +36,25 @@ const UserRegisterForm = ({onRegisterForm}) => {
                             </div>
                             <div className="col-9">
                                 <input type="text" name="username" className="form-control" placeholder="username"
-                                value={username} onChange={(e) => {setUsername(e.target.value);}}/>
+                                value={username} onChange={(e) => {setUsername(e.target.value);}} required/>
                             </div>
                         </div>
                         <div className="row mb-2">
                             <div className="col-3">
-                                <label htmlFor="password" className="form-label">Password</label>
+                                <label htmlFor="userpassword" className="form-label">Password</label>
                             </div>
                             <div className="col-9">
-                                <input type="text" name="password" className="form-control" placeholder="password"
-                                value={password} onChange={(e) => {setPassword(e.target.value);}}/>
+                                <input type="text" name="userpassword" className="form-control" placeholder="password"
+                                value={password} onChange={(e) => {setPassword(e.target.value);}} required/>
                             </div>
                         </div>
                         <div className="row mb-4">
                             <div className="col-3">
-                                <label htmlFor="confirm" className="form-label">Confirm</label>
+                                <label htmlFor="userconfirm" className="form-label">Confirm</label>
                             </div>
                             <div className="col-9">
-                                <input type="text" name="confirm" className="form-control" placeholder="confirm password"
-                                value={confirm} onChange={(e) => {setConfirm(e.target.value);}}/>
+                                <input type="text" name="userconfirm" className="form-control" placeholder="confirm password"
+                                value={confirm} onChange={(e) => {setConfirm(e.target.value);}} required/>
                             </div>
                         </div>
                         <div className="row">

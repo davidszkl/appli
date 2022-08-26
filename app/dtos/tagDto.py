@@ -1,4 +1,4 @@
-from backend.models.tag import Tag
+from app.models.tag import Tag
 
 class TagDTO():
 

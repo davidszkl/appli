@@ -1,4 +1,4 @@
-from backend.models.sex import Sex
+from app.models.sex import Sex
 
 class SexDTO():
 

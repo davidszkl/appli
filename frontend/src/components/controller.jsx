@@ -2,18 +2,19 @@ import { useState } from 'react';
 import UserRegisterForm from './user_register_form';
 import UserInfoForm from './user_info_form';
 import UserAddressForm from './user_address_form';
+import axios from 'axios';
 
-const Controller = () => {
+const Controller = ({onRegisterUser}) => {
     const [stage, setStage] = useState("register");
     const [formData, setFormData] = useState({});
 
     const onRegisterForm = (e) => {
         setFormData(prev => ({
             ...prev,
-            email: e.email, 
+            useremail: e.useremail, 
             username : e.username,
-            password: e.password,
-            confirm: e.confirm
+            userpassword: e.userpassword,
+            userconfirm: e.userconfirm
         }))
         setStage("info");
     }
@@ -21,8 +22,8 @@ const Controller = () => {
     const onInfoForm = (e) => {
         setFormData(prev => ({
             ...prev,
-            age: e.age, 
-            sex: e.sex,
+            userage: e.userage, 
+            usersex: e.usersex,
         }))
         setStage("address");
     }
@@ -30,12 +31,27 @@ const Controller = () => {
     const onAddressForm = (e) => {
         setFormData(prev => ({
             ...prev,
-            street: e.street,
-            nbr: e.nbr,
-            zip: e.zip,
-            county: e.county,
-            country: e.country
+            addressstreet: e.addressstreet,
+            addressnbr: e.addressnbr,
+            addresszip: e.addresszip,
+            addresscounty: e.addresscounty,
+            addresscountry: e.addresscountry
         }))
+
+        const headers = {
+            headers:{
+                'Access-Control-Allow-Origin': "*",
+            }
+        };
+        const url = "http://127.0.0.1:8080/register";
+        axios.post(url, formData, headers)
+        .then((res) => {
+            console.log(res);
+        })
+        .catch(e => {
+            console.log(e);
+        })
+
     }
 
     return (

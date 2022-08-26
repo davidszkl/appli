@@ -1,5 +1,5 @@
-from backend import app
-from backend.services.partyService import PartyService
+from app import app
+from app.services.partyService import PartyService
 
 @app.route('/parties')
 def parties():
