@@ -13,10 +13,18 @@
         {
           "splitTerminals": [
             {
-                "name": "server",
+                "name": "backend",
                 "commands": ["python3 runserver.py"]
             }
           ]
         },
+        {
+            "splitTerminals": [
+              {
+                  "name": "frontend",
+                  "commands": ["npm start --prefix frontend/"]
+              }
+            ]
+          },
       ]
 }

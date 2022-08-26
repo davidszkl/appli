@@ -1,11 +1,9 @@
 import './App.css';
-import Connect from './components/connect.jsx';
-
+import Controller from './components/controller';
 function App() {
   return (
     <div className="App">
-        <h1>Coucou</h1>
-        <Connect/>
+        <Controller/>
     </div>
   );
 }
