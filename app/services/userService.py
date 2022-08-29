@@ -16,6 +16,9 @@ class UserService:
     def find_one(self, userid: int):
         return UserDTO.entityToJSON(User.query.filter_by(userid=userid).first())
 
+    def find_one_by(self, password=False, **kwargs):
+        return UserDTO.entityToJSON(User.query.filter_by(**kwargs).first(), password=password)
+
     def insert_one(self, userForm: UserRegisterForm, addressForm: AddressCreateForm):
         address = addressForm.formToEntity()
         user = userForm.formToEntity()
@@ -29,3 +32,8 @@ class UserService:
 
         except Exception as e:
             print(e)
+
+    def validate_password(self, user: User, password: str):
+        if bcrypt.checkpw(password.encode('utf-8'), user['userpassword'].encode('utf-8')):
+            return True
+        return False

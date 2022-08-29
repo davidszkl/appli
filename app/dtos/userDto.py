@@ -9,16 +9,20 @@ from app.forms.user.user_register_form import UserRegisterForm
 class UserDTO():
 
     @staticmethod
-    def entityToJSON(user: User):
-        return {
-            "userid":      user.userid,
-            "username":    user.username,
-            "usersex":     SexDTO.entityToJSON(user.sex),
-            "userage":     user.userage,
-            "useraddress": LocationDTO.entityToJSON(user.address),
-            "usertags":    [TagDTO.entityToJSON(tag.tags) for tag in user.tags],
-            "userparties": user.parties,
-        }
+    def entityToJSON(user: User, password: bool = False):
+        try:
+            return {
+                "userid":      user.userid,
+                "username":    user.username,
+                "usersex":     SexDTO.entityToJSON(user.sex),
+                "userage":     user.userage,
+                "useraddress": LocationDTO.entityToJSON(user.address),
+                "usertags":    [TagDTO.entityToJSON(tag.tags) for tag in user.tags],
+                "userparties": user.parties,
+                "userpassword": user.userpassword if password else ""
+            }
+        except:
+            return None
 
     @staticmethod
     def formToEntity(form: UserRegisterForm, address: Address):

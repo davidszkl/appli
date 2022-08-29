@@ -26,5 +26,13 @@
               }
             ]
           },
+          {
+            "splitTerminals": [
+              {
+                  "name": "terminal",
+                  "commands": [""]
+              }
+            ]
+          },
       ]
 }
