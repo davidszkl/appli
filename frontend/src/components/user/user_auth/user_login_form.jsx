@@ -7,20 +7,20 @@ import style from "./register_form.module.css"
 import { backend_url } from "../../../App";
 import ListError from "../../generic/list_error";
 
+import { useAuth } from "../../..";
+
 
 const UserLoginForm = ({onLogin}) => {
     const [username, setUsername] = useState('');
     const [userpassword, setUserPassword] = useState('');
     const [errors, setErrors] = useState(null);
     const navigate = useNavigate();
+    const { setAuth } = useAuth();
 
     const url = `${backend_url}/login`;
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("error");
-        console.log(errors);
-
         const headers = {
             headers:{"Content-Type": "application/json",
                      "Access-Control-Allow-Origin": "*",}
@@ -30,7 +30,8 @@ const UserLoginForm = ({onLogin}) => {
         .then((res) => {
             if (res.data['token']) {
                 localStorage.setItem("token", res.data['token']);
-                navigate('/home');
+                setAuth(true);
+                navigate('/');
             }
             else {
                 setErrors(null)
@@ -78,7 +79,7 @@ const UserLoginForm = ({onLogin}) => {
                         <div className={style.auth_error}>
                             <ListError errors={errors}/>
                         </div>
-                        : "no errors"}
+                        : ""}
                         <div className="row">
                             <div className="col-3"></div>
                             <div className="col-5">
