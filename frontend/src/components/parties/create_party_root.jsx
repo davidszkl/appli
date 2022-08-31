@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import axios from 'axios';
 
-import PartyTitleForm from './party_title';
+import PartyTitleForm from './party_title_form';
+import AddressForm from '../generic/address_form';
+import PartyInfoForm from './party_info_form';
 
 
 const CreatePartyRoot = () => {
-    const [stage, setStage] = useState("title");
+    const [stage, setStage] = useState("info");
     const [formData, setFormData] = useState({});
     const navigate = useNavigate();
 
@@ -16,19 +18,22 @@ const CreatePartyRoot = () => {
             ...prev,
             partytitle: e.partytitle, 
         }))
-        setStage("info");
-    }
-
-    const onInfoForm = (e) => {
-        setFormData(prev => ({
-            ...prev,
-            userage: e.userage, 
-            usersex: e.usersex,
-        }))
         setStage("address");
     }
 
     const onAddressForm = (e) => {
+        setFormData(prev => ({
+            ...prev,
+            addressstreet: e.addressstreet,
+            addressnbr: e.addressnbr,
+            addresszip: e.addresszip,
+            addresscounty: e.addresscounty,
+            addresscountry: e.addresscountry
+        }))
+        setStage("info");
+    }
+
+    const onInfoForm = (e) => {
         setFormData(prev => ({
             ...prev,
             addressstreet: e.addressstreet,
@@ -58,6 +63,8 @@ const CreatePartyRoot = () => {
     return (
         <>
             {stage === "title" ? <PartyTitleForm onTitleForm={onTitleForm}/> :
+             stage === "address" ? <AddressForm onAddressForm={onAddressForm}/> :
+             stage === "info" ? <PartyInfoForm onInfoForm={onInfoForm}/> :
              ""}
         </>
     );

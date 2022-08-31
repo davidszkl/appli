@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import UserRegisterForm from './user_register_form';
 import UserInfoForm from './user_info_form';
-import UserAddressForm from './user_address_form';
+import AddressForm from '../../generic/address_form';
 
 
 const UserRegisterRoot = () => {
@@ -64,7 +64,7 @@ const UserRegisterRoot = () => {
         <>
             {stage === "register" ? <UserRegisterForm onRegisterForm={onRegisterForm}/> :
              stage === "info" ? <UserInfoForm onInfoForm={onInfoForm}/> :
-             stage === "address" ? <UserAddressForm onAddressForm={onAddressForm}/> :
+             stage === "address" ? <AddressForm onAddressForm={onAddressForm}/> :
              ""}
         </>
     );

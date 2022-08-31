@@ -24,3 +24,23 @@
     text-align: left;
     padding-left: 5rem;
 }
+
+.tags_list {
+    list-style-type:none;
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+}
+
+.tags_list_item {
+    margin-right: 5px;
+    border: 2px solid purple;
+    border-radius: 10px;
+    padding: 2px 5px 2px 5px;
+    margin: 5px 5px 5px 5px;
+}
+
+.small_delete_button {
+    margin-left: 5px;
+    --bs-btn-font-size: .55rem;
+}

@@ -5,8 +5,9 @@ import jwt
 from app.framework.decorators.inject import inject
 
 from app.dtos.userDto import UserDTO
-from app.services.authService import AuthService
-from app.services.userService import UserService
+from app.services.authService  import AuthService
+from app.services.userService  import UserService
+from app.services.partyService import PartyService
 
 from app.forms.user.user_register_form import UserRegisterForm
 from app.forms.address_create_form     import AddressCreateForm
@@ -50,12 +51,12 @@ def login(userservice: UserService):
 
     if user is not None:
         if userservice.validate_password(user, loginJSON['userpassword']):
-            token = jwt.encode({ "userid": user['userid'] }, app.config['SECRET_KEY'], "HS256").decode('utf-8')
+            token = jwt.encode(user, app.config['SECRET_KEY'], "HS256").decode('utf-8')
             return jsonify({"token": token})
         
     return jsonify({"errors": {"": ["wrong username or password"]}})
 
 @app.route('/test', methods=['GET', 'POST'])
-def test():
-    token = jwt.encode({"token": "david"}, "secret", "HS256").decode('utf-8')
-    return jsonify({"token": token})
+@inject
+def test(partyservice: PartyService):
+    return partyservice.find_one(1)

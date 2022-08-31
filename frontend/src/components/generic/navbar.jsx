@@ -22,6 +22,7 @@ const NavBar = () => {
                 <div className="collapse navbar-collapse justfiy-content-end">
                     <div className="navbar-nav me-auto">
                         <Link to="/test" className="nav-link active">test</Link>
+                        <Link to="/create_party" className="nav-link active">Create Party</Link>
                     </div>
                     {token ?
                     <div className="navbar-nav ms-auto">

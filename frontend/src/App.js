@@ -8,8 +8,6 @@ import TemplateRequest  from './components/generic/template_component';
 import CreatePartyRoot  from './components/parties/create_party_root';
 import UserProfile      from './components/user/user_profile';
 
-import ProfilePage      from './routes/profile_route';
-
 
 export const backend_url = "http://127.0.0.1:8080";
 

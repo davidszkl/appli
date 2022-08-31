@@ -1,10 +1,10 @@
 import { useState } from "react"
 
-import style from "../../css/theme.module.css"
-import Optionlist from "../../generic/option_list"
+import style from "../css/theme.module.css"
+import Optionlist from "./option_list"
 
 
-const UserAddressForm = ({onAddressForm}) => {
+const AddressForm = ({onAddressForm}) => {
     const [street, setStreet] = useState('');
     const [nbr, setNbr] = useState('');
     const [zip, setZip] = useState('');
@@ -341,4 +341,4 @@ const UserAddressForm = ({onAddressForm}) => {
     );
 }
 
-export default UserAddressForm
+export default AddressForm
