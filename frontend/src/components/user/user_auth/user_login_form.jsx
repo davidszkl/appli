@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState }    from "react";
 import { useNavigate } from "react-router";
+import { useDispatch } from 'react-redux';
+import { loginAction } from "../../../app/authSlice.js"
 
 import axios from "axios";
 
@@ -7,15 +9,14 @@ import style from "./register_form.module.css"
 import { backend_url } from "../../../App";
 import ListError from "../../generic/list_error";
 
-import { useAuth } from "../../..";
 
 
-const UserLoginForm = ({onLogin}) => {
+const UserLoginForm = () => {
     const [username, setUsername] = useState('');
     const [userpassword, setUserPassword] = useState('');
     const [errors, setErrors] = useState(null);
     const navigate = useNavigate();
-    const { setAuth } = useAuth();
+    const dispatch = useDispatch();
 
     const url = `${backend_url}/login`;
 
@@ -29,12 +30,11 @@ const UserLoginForm = ({onLogin}) => {
         axios.post(url, {"username": username, "userpassword": userpassword}, headers)
         .then((res) => {
             if (res.data['token']) {
-                localStorage.setItem("token", res.data['token']);
-                setAuth(true);
+                dispatch(loginAction(res.data));
                 navigate('/');
             }
             else {
-                setErrors(null)
+                setErrors(null);
                 for (let error in res.data.errors) {
                     const key = error;
                     const val = res.data.errors[error];

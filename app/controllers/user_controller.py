@@ -5,6 +5,7 @@ import jwt
 from app.framework.decorators.inject import inject
 
 from app.dtos.userDto import UserDTO
+from app.services.authService import AuthService
 from app.services.userService import UserService
 
 from app.forms.user.user_register_form import UserRegisterForm
@@ -17,9 +18,12 @@ from app.forms.user.user_login_form    import UserLoginForm
 def users(userservice: UserService):
     return userservice.find_all()
 
-@app.route('/users/<int:userid>')
+@app.route('/profile')
 @inject
-def oneUser(userid: int, userservice: UserService):
+def profile(userservice: UserService, authservice: AuthService):
+    userid = authservice.decodeJWT()
+    if not userid:
+        return jsonify({"error": "tokenError"})
     return userservice.find_one(userid=userid)
 
 @app.route('/register', methods=['POST'])

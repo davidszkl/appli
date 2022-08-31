@@ -5,6 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "command": "npm start --prefix ./frontend",
+            "name": "Run npm start",
+            "request": "launch",
+            "type": "node-terminal",
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
@@ -12,5 +18,5 @@
             "console": "integratedTerminal",
             "justMyCode": true
         }
-    ]
+    ],
 }

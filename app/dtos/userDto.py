@@ -11,16 +11,18 @@ class UserDTO():
     @staticmethod
     def entityToJSON(user: User, password: bool = False):
         try:
-            return {
+            rval = {
                 "userid":      user.userid,
                 "username":    user.username,
                 "usersex":     SexDTO.entityToJSON(user.sex),
                 "userage":     user.userage,
                 "useraddress": LocationDTO.entityToJSON(user.address),
                 "usertags":    [TagDTO.entityToJSON(tag.tags) for tag in user.tags],
-                "userparties": user.parties,
-                "userpassword": user.userpassword if password else ""
+                "userparties": user.parties
             }
+            if password:
+                rval['userpassword'] = user.userpassword
+            return rval
         except:
             return None
 
@@ -28,8 +30,8 @@ class UserDTO():
     def formToEntity(form: UserRegisterForm, address: Address):
         user = User()
         user.username = form.username
-        user.usersex = form.usersex 
+        user.sex = form.usersex 
         user.userage = form.userage 
-        user.useraddress = address 
+        user.address = address 
         
         return user

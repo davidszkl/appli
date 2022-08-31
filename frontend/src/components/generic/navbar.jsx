@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom"
-import { useAuth } from "../..";
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutAction } from "../../app/authSlice.js";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
-    const {auth, setAuth} = useAuth();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const token = useSelector((state) => state.auth.token);
 
-    const handleClick = () => {
-        setAuth(false);
+    const handleLogout = () => {
+        dispatch(logoutAction());
+        navigate('/login');
     }
     
     return (
@@ -16,10 +21,10 @@ const NavBar = () => {
                     <div className="navbar-nav me-auto">
                         <Link to="/test" className="nav-link active">test</Link>
                     </div>
-                    {auth ?
+                    {token ?
                     <div className="navbar-nav ms-auto">
-                        <button onClick={handleClick}>LOGOUT</button>
-                        <p>profile</p>
+                        <Link to="/profile" className="btn btn-primary">Profile</Link>
+                        <button className="btn" onClick={handleLogout}>logout</button>
                     </div>
                     :<div className="navbar-nav ms-auto">
                         <Link to="/login" className="nav-link nav-item active">Login</Link>

@@ -3,40 +3,43 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux'
+import store from './app/store'
 
-export const AuthContext = createContext({
-    auth: null,
-    setAuth: () => {},
-    user: null,
-});
+// export const AuthContext = createContext({
+//     auth: null,
+//     setAuth: () => {},
+//     user: null,
+//     setUser: () => {},
+// });
 
-export const useAuth = () => useContext(AuthContext);
+// export const useAuth = () => useContext(AuthContext);
 
-const AuthProvider = ({children}) => {
-    const [auth, setAuth] = useState("default");
-    const [user, setUser] = useState();
+// const AuthProvider = ({children}) => {
+//     const [auth, setAuth] = useState();
+//     const [user, setUser] = useState();
   
-    useEffect(() => {
-        setAuth(localStorage.getItem('token'))
-        setUser(localStorage.getItem('token'))
-    }, []);
+//     useEffect(() => {
+//         setAuth(localStorage.getItem('token'))
+//         setUser(localStorage.getItem('token'))
+//     }, []);
   
-    return (
-      <AuthContext.Provider value={{ auth, setAuth, user }}>
-        {children}
-      </AuthContext.Provider>
-    ); 
-}
+//     return (
+//       <AuthContext.Provider value={{ auth, setAuth, user, setUser }}>
+//         {children}
+//       </AuthContext.Provider>
+//     ); 
+// }
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <AuthProvider>
+    <Provider store={store}>
         <App/>
-    </AuthProvider>
+    </Provider>
 )
 
-export default AuthProvider;
+// export default AuthProvider;
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

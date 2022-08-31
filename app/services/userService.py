@@ -13,8 +13,8 @@ class UserService:
     def find_all(self):
         return jsonify([UserDTO.entityToJSON(user) for user in User.query.filter_by().all()])
 
-    def find_one(self, userid: int):
-        return UserDTO.entityToJSON(User.query.filter_by(userid=userid).first())
+    def find_one(self, userid: int, password=False):
+        return UserDTO.entityToJSON(User.query.filter_by(userid=userid).first(), password=password)
 
     def find_one_by(self, password=False, **kwargs):
         return UserDTO.entityToJSON(User.query.filter_by(**kwargs).first(), password=password)
