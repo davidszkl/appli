@@ -16,7 +16,9 @@ const NavBar = () => {
     return (
         <nav className="navbar navbar-expand-lg bg-light">
             <div className="container-fluid">
-                <a className="navbar-brand" href="/">Navbar</a>
+                <Link to="/" className="navbar-brand">
+                    Navbar
+                    </Link>
                 <div className="collapse navbar-collapse justfiy-content-end">
                     <div className="navbar-nav me-auto">
                         <Link to="/test" className="nav-link active">test</Link>

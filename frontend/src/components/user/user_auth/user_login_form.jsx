@@ -2,13 +2,13 @@ import { useState }    from "react";
 import { useNavigate } from "react-router";
 import { useDispatch } from 'react-redux';
 import { loginAction } from "../../../app/authSlice.js"
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 
-import style from "./register_form.module.css"
+import style from "../../css/theme.module.css"
 import { backend_url } from "../../../App";
 import ListError from "../../generic/list_error";
-
 
 
 const UserLoginForm = () => {
@@ -29,8 +29,9 @@ const UserLoginForm = () => {
 
         axios.post(url, {"username": username, "userpassword": userpassword}, headers)
         .then((res) => {
+            console.log(res);
             if (res.data['token']) {
-                dispatch(loginAction(res.data));
+                dispatch(loginAction(res.data['token']));
                 navigate('/');
             }
             else {
@@ -80,10 +81,15 @@ const UserLoginForm = () => {
                             <ListError errors={errors}/>
                         </div>
                         : ""}
-                        <div className="row">
+                        <div className="row mb-3">
                             <div className="col-3"></div>
                             <div className="col-5">
                                 <input type="submit" className={"form-control " + style.big_info_submit} onClick={handleSubmit}/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-6">
+                                <span style={{paddingRight: '15px'}}>No account ?</span><Link to="/register" className="nav-item active">Register</Link>
                             </div>
                         </div>
                     </div>

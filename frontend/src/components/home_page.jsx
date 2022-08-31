@@ -1,5 +1,3 @@
-import { token } from "../App";
-
 const HomePage = () => {
     
     return (

@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-import style from "./register_form.module.css"
+import style from "../../css/theme.module.css"
 import Optionlist from "../../generic/option_list"
 
 

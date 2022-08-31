@@ -1,6 +1,7 @@
 import { useState } from "react"
+import { Link } from "react-router-dom";
 
-import style from "./register_form.module.css"
+import style from "../../css/theme.module.css"
 
 
 const UserRegisterForm = ({onRegisterForm}) => {
@@ -59,10 +60,15 @@ const UserRegisterForm = ({onRegisterForm}) => {
                                 value={confirm} onChange={(e) => {setConfirm(e.target.value);}} required/>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row mb-3">
                             <div className="col-2"></div>
                             <div className="col-8">
                                 <input type="submit" className={"form-control " + style.big_submit} onClick={handleSubmit}/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-7">
+                                <span style={{paddingRight: '15px'}}>Have an account ?</span><Link to="/login" className="nav-item active">Login</Link>
                             </div>
                         </div>
                     </div>
