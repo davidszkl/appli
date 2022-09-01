@@ -8,7 +8,7 @@ import axios from "axios";
 
 import style from "../../css/theme.module.css"
 import { backend_url } from "../../../App";
-import ListError from "../../generic/list_error";
+import ListError from "../../generic/lists/list_error.jsx"
 
 
 const UserLoginForm = () => {

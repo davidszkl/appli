@@ -14,7 +14,7 @@ const TemplateComponent = () => {
     }
 
     const handleRequest = (e) => {
-        axios.get(url, null, headers)
+        axios.get(url, headers)
         .then(res => {
             console.log('a');
         })

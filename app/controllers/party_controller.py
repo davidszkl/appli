@@ -1,10 +1,21 @@
 from app import app
+from app.framework.decorators.inject import inject
+
 from app.services.partyService import PartyService
+from app.services.sexService import SexService
+
 
 @app.route('/parties')
-def parties():
-    return PartyService().find_all()
+@inject
+def parties(partyservice: PartyService):
+    return partyservice.find_all()
 
 @app.route('/parties:<int:partyid>')
-def party(partyid: int):
-    return PartyService().find_one(partyid=partyid)
+@inject
+def party(partyid: int, partyservice: PartyService):
+    return partyservice.find_one(partyid=partyid)
+
+@app.route('/sexes')
+@inject
+def  sexes(sexservice: SexService):
+    return sexservice.find_all()

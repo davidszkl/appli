@@ -3,7 +3,7 @@ from wtforms import IntegerField, StringField
 from wtforms.validators import DataRequired, Regexp
 
 from app.models.user import User
-from app.services.sexService import sexService
+from app.services.sexService import SexService
 
 class UserRegisterForm(FlaskForm):
     class Meta:
@@ -22,6 +22,6 @@ class UserRegisterForm(FlaskForm):
         user.useremail = self.useremail.data
         user.userpassword = self.userpassword.data
         user.userage = self.userage.data
-        user.sex = sexService.find_one_by_name(self.usersex.data)
+        user.sex = SexService.find_one_by_name(self.usersex.data)
         user.parties = []
         return user
