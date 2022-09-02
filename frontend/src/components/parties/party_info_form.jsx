@@ -11,10 +11,12 @@ import { Select } from "../generic/forms/select";
 
 
 const PartyInfoForm = ({onInfoForm}) => {
-    const [start, setStart] = useState("");
-    const [end, setEnd] = useState("");
-    const [ageMin, setAgeMin] = useState(0);
-    const [ageMax, setAgeMax] = useState(120);
+    const date = new Date();
+    const now = `${date.getFullYear()}-${date.getMonth().toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}T${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+    const [start, setStart] = useState(now);
+    const [end, setEnd] = useState(now);
+    const [ageMin, setAgeMin] = useState(18);
+    const [ageMax, setAgeMax] = useState(99);
     const [tags, setTags] = useState([]);
     const [currTag, setCurrTag] = useState("");
     const [sexes, setSexes] = useState([]);
@@ -25,7 +27,15 @@ const PartyInfoForm = ({onInfoForm}) => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        onInfoForm(start);
+        onInfoForm(
+            {
+             "partytimestart" :start,
+             "partytimeend" :end,
+             "partyagemin" :ageMin,
+             "partyagemax" :ageMax,
+             "partytags" :tags,
+             "partysexes" :sexes,
+        });
     }
 
     const handleKeyDown = (e, listtype) => {
@@ -38,12 +48,11 @@ const PartyInfoForm = ({onInfoForm}) => {
         {
             if (currTag.trim().length > 1) {
                 if (tags.includes(currTag)) {
-
                     return;
                 }
-
                 setTags([...tags, currTag]);
                 setCurrTag("");
+                console.log(currTag);
             }
         } else if (listtype === 'sex')
         {
@@ -67,9 +76,10 @@ const PartyInfoForm = ({onInfoForm}) => {
     }
 
     const updateSelect = (e) => {
-        console.log(e.target.value);
-        setCurrSex(e.target.value);
-        setSexes([...sexes, e.target.value]);
+        if (!sexes.includes(e.target.value)) {
+            setCurrSex(e.target.value);
+            setSexes([...sexes, e.target.value]);
+        }
     }
 
     useEffect(() => {
@@ -78,7 +88,9 @@ const PartyInfoForm = ({onInfoForm}) => {
             headers:{"Content-Type": "application/json",
                      "Access-Control-Allow-Origin": "*"}
         }
-    
+
+
+
         axios.get(url, headers)
         .then(res => {
             setDbSexes(res.data.map((sex) => {
@@ -91,7 +103,6 @@ const PartyInfoForm = ({onInfoForm}) => {
     const startDateValidator = (value) => {
         const today = new Date();
         const date = new Date(value);
-        console.log(date < today);
         if (date < today)
             return {state: false, message: "start date can't be in the past"}
         return {state: true}
@@ -123,25 +134,6 @@ const PartyInfoForm = ({onInfoForm}) => {
         return {state: true};
     }
 
-    const testValidator = (value, a) => {
-        return {state: true};
-    }
-
-    const setAgeMinWrapper = (e) => {
-        setAgeMin(e);
-        // console.log(ageMin);
-    }
-
-    const setAgeMaxWrapper = (e) => {
-        setAgeMax(e);
-        // console.log(ageMax);
-    }
-
-    const test = (val) => {
-        // console.log(val);
-        setCurrTag(val);
-    }
-
     return (
         <>
             { currSex }
@@ -158,9 +150,9 @@ const PartyInfoForm = ({onInfoForm}) => {
                         <Input name="partyend" label=" " type="datetime-local" validator={endDateValidator} onChange={setEnd} classNames={{"label": "col-2", "input": "col-5"}} value={end}/>
                     </div>
                     <div className="row mb-2 align-items-top">
-                        <Input name="ageMin" label="age range" type="number" onChange={setAgeMinWrapper} classNames={{"label": "col-2", "input": "col-2"}} defaultValue={ageMin} errors={errors} setErrors={setErrors} validators={[(e) => ageMinValidator(e, 0, 120), testValidator]}/>
+                        <Input name="ageMin" label="age range" type="number" onChange={setAgeMin} classNames={{"label": "col-2", "input": "col-2"}} value={ageMin} errors={errors} setErrors={setErrors} validators={[(e) => ageMinValidator(e, 0, 120)]}/>
                         <div className={"col-1 " + style.nice_hyphen}>-</div>
-                        <Input name="ageMax" label={false}     type="number" onChange={setAgeMaxWrapper} classNames={{"label": "col-2", "input": "col-2"}} defaultValue={ageMax} errors={errors} setErrors={setErrors} validators={[(e) => ageMaxValidator(e, 0, 120), testValidator]}/>
+                        <Input name="ageMax" label={false}     type="number" onChange={setAgeMax} classNames={{"label": "col-2", "input": "col-2"}} value={ageMax} errors={errors} setErrors={setErrors} validators={[(e) => ageMaxValidator(e, 0, 120)]}/>
                         <p>{errors['ageMin']} {errors['ageMax']}</p>
                     </div>
                     <div className="row mb-2 align-items-top">

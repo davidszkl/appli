@@ -7,7 +7,7 @@ const PartyTitleForm = ({onTitleForm}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onTitleForm(title);
+        onTitleForm({"partytitle": title});
     }
 
     return (

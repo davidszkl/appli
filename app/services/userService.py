@@ -32,6 +32,7 @@ class UserService:
 
         except Exception as e:
             print(e)
+            return None
 
     def validate_password(self, user: User, password: str):
         if bcrypt.checkpw(password.encode('utf-8'), user['userpassword'].encode('utf-8')):
