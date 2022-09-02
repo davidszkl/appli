@@ -12,7 +12,8 @@ import { Select } from "../generic/forms/select";
 
 const PartyInfoForm = ({onInfoForm}) => {
     const date = new Date();
-    const now = `${date.getFullYear()}-${date.getMonth().toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}T${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+    const now = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}T${date.getHours().toString().padStart(2, '0')}:${(date.getMinutes() + 1).toString().padStart(2, '0')}`;
+    console.log(date.getMonth());
     const [start, setStart] = useState(now);
     const [end, setEnd] = useState(now);
     const [ageMin, setAgeMin] = useState(18);
@@ -27,14 +28,20 @@ const PartyInfoForm = ({onInfoForm}) => {
     
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log('wtf');
+        const form = document.forms[0];
+        if (form.checkValidity() === false) {
+            form.reportValidity();
+            return;
+        }
         onInfoForm(
             {
-             "partytimestart" :start,
-             "partytimeend" :end,
-             "partyagemin" :ageMin,
-             "partyagemax" :ageMax,
-             "partytags" :tags,
-             "partysexes" :sexes,
+                "partytimestart" :start,
+                "partytimeend" :end,
+                "partyagemin" :ageMin,
+                "partyagemax" :ageMax,
+                "partytags" :tags,
+                "partysexes" :sexes,
         });
     }
 
@@ -101,8 +108,10 @@ const PartyInfoForm = ({onInfoForm}) => {
     }, [])
 
     const startDateValidator = (value) => {
-        const today = new Date();
         const date = new Date(value);
+        const today = new Date();
+        console.log(date);
+        console.log(today);
         if (date < today)
             return {state: false, message: "start date can't be in the past"}
         return {state: true}
@@ -144,10 +153,10 @@ const PartyInfoForm = ({onInfoForm}) => {
                         <div><h3>Some more info about your party...</h3></div>
                     </div>
                     <div className="row mb-2 align-items-center">
-                        <Input name="partystart" label="start/end" type="datetime-local" validator={startDateValidator} onChange={setStart} classNames={{"label": "col-2", "input": "col-5"}} value={start}/>
+                        <Input name="partystart" label="start/end" type="datetime-local" validators={[startDateValidator]} onChange={setStart} classNames={{"label": "col-2", "input": "col-5"}} value={start}/>
                     </div>
                     <div className="row mb-2 align-items-center">
-                        <Input name="partyend" label=" " type="datetime-local" validator={endDateValidator} onChange={setEnd} classNames={{"label": "col-2", "input": "col-5"}} value={end}/>
+                        <Input name="partyend" label=" " type="datetime-local" validators={[endDateValidator]} onChange={setEnd} classNames={{"label": "col-2", "input": "col-5"}} value={end}/>
                     </div>
                     <div className="row mb-2 align-items-top">
                         <Input name="ageMin" label="age range" type="number" onChange={setAgeMin} classNames={{"label": "col-2", "input": "col-2"}} value={ageMin} errors={errors} setErrors={setErrors} validators={[(e) => ageMinValidator(e, 0, 120)]}/>
@@ -156,8 +165,8 @@ const PartyInfoForm = ({onInfoForm}) => {
                         <p>{errors['ageMin']} {errors['ageMax']}</p>
                     </div>
                     <div className="row mb-2 align-items-top">
-                        <Input name="tags" label="tags" type="text" onChange={setCurrTag} onKeyDown={(e) => handleKeyDown(e, 'tag')} classNames={{"label": "col-2", "input": "col-3"}} value={currTag}/>
-                        <ItemList delEvent={(e) => {handleDelEvent(e, 'tag')}} items={tags} classProp={{"list": style.tags_list, "item": style.tags_list_item}}/>
+                        <Input name="tags" label="tags" type="text" onChange={setCurrTag} onKeyDown={(e) => handleKeyDown(e, 'tag')} classNames={{"label": "col-2", "input": "col-3"}} value={currTag} notRequired={true}/>
+                        <ItemList delEvent={(e) => {handleDelEvent(e, 'tag')}} items={tags} classProp={{"list": style.tags_list, "item": style.tags_list_item}} />
                     </div>
                     <div className="row mb-2 align-items-top">
                         <Select name="sexes" label="Who is allowed ?" value={currSex} optionList={<><option defaultValue={true}></option><Optionlist options={dbSexes}/></>} onChange={updateSelect} classNames={{"label": "col-2", "input": "col-3"}}/>

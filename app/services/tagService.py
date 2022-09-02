@@ -18,7 +18,6 @@ class  TagService:
 
         for tag in all_tags.json:
             if tag['tagname'] == tagname:
-                print(f"{tagname} already in collection of tagsS")
                 return
 
         try:
@@ -26,7 +25,6 @@ class  TagService:
             tag.tagname = tagname
             db.session.add(tag)
             db.session.commit()
-            print(f"ADDED {tagname} to the collection of tags")
 
         except Exception as e:
             db.session.rollback()

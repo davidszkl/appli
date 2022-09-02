@@ -14,7 +14,7 @@ class PartyDTO():
             "partytitle":     party.partytitle,
             "partyaddress":   AddressDTO.entityToJSON(party.address),
             "partytimestart": DateTimeDTO.entityToJSON(party.partytimestart),
-            "partytimeend":   DateTimeDTO.entityToJSON(party.partytimened),
+            "partytimeend":   DateTimeDTO.entityToJSON(party.partytimeend),
             "partyagemin":    party.partyagemin,
             "partyagemax":    party.partyagemax,
             "partysexes":     [SexDTO.entityToJSON(sex.sexes) for sex in party.sexes],

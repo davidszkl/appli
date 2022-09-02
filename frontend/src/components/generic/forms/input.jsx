@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import style from "../../css/theme.module.css"
 
-export const Input = function({name, label, type, validators, classNames, value, onKeyDown, onChange, id}) {
+export const Input = function({name, label, type, validators, classNames, value, onKeyDown, onChange, id, placeholder, notRequired}) {
 
     // const [valueIn, setValueIn] = useState(value);
     const [err, setErr] = useState("")
@@ -28,7 +28,7 @@ export const Input = function({name, label, type, validators, classNames, value,
             <div className={classNames['input']}>
                 <div>
                     <input type={type} id={id} name={name} className="form-control" onChange={(e) => onChange(e.target.value)} onKeyDown={onKeyDown}
-                    value={value}/>
+                    value={value} required={notRequired ? false : true} placeholder={placeholder}/>
                 </div>
                 <div className="error">
                     { err }

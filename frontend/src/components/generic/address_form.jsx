@@ -2,6 +2,8 @@ import { useState } from "react"
 
 import style from "../css/theme.module.css"
 import Optionlist from "./option_list"
+import { Input } from "./forms/input"
+import { Select } from "./forms/select"
 
 
 const AddressForm = ({onAddressForm}) => {
@@ -13,7 +15,12 @@ const AddressForm = ({onAddressForm}) => {
     
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
+        const form = document.forms[0];
+        if (form.checkValidity() === false) {
+            form.reportValidity();
+            return
+        }
         onAddressForm({
             "addressstreet": street, "addressnbr": nbr, "addresszip": zip, "addresscounty": county, "addresscountry": country});
     }
@@ -272,6 +279,17 @@ const AddressForm = ({onAddressForm}) => {
     {name: "ZM", value:"Zambia"},
     {name: "ZW", value:"Zimbabwe"}
     ]
+
+    const isString = (inpt) => {
+        if (/\d/.test(inpt))
+            return {state:false, message:"must be a string"}
+        return {state: true};
+    }
+
+    const updateSelect = (e) => {
+        setCountry(e.target.value);
+    }
+
     return (
         <>
             <div className={style.border + " d-flex justify-content-center"}>
@@ -280,59 +298,25 @@ const AddressForm = ({onAddressForm}) => {
                         <div className="col-4"></div>
                         <div><h1>Address</h1></div>
                     </div>
-                    <div>
-                        <div className="row mb-2">
-                            <div className="col-3">
-                                <label htmlFor="addressstreet" className="form-label">Street</label>
-                            </div>
-                            <div className="col-7">
-                                <input type="text" name="addressstreet" className="form-control" placeholder="street"
-                                value={street} onChange={(e) => {setStreet(e.target.value);}} required/>
-                            </div>
-                        </div>
-                        <div className="row mb-2">
-                            <div className="col-3">
-                                <label htmlFor="addressnbr" className="form-label">nr°</label>
-                            </div>
-                            <div className="col-4">
-                                <input type="number" name="addressnbr" className="form-control" placeholder="24"
-                                value={nbr} onChange={(e) => {setNbr(e.target.value);}} required/>
-                            </div>
-                        </div>
-                        <div className="row mb-2">
-                            <div className="col-3">
-                                <label htmlFor="addresszip" className="form-label">Zip</label>
-                            </div>
-                            <div className="col-4">
-                                <input type="number" name="addresszip" className="form-control" placeholder="1234"
-                                value={zip} onChange={(e) => {setZip(e.target.value);}} required/>
-                            </div>
-                        </div>
-                        <div className="row mb-2">
-                            <div className="col-3">
-                                <label htmlFor="addresscounty" className="form-label">County</label>
-                            </div>
-                            <div className="col-7">
-                                <input type="text" name="addresscounty" className="form-control" placeholder="county"
-                                value={county} onChange={(e) => {setCounty(e.target.value);}} required/>
-                            </div>
-                        </div>
-                        <div className="row mb-4">
-                            <div className="col-3">
-                                <label htmlFor="addresscountry" className="form-label">country</label>
-                            </div>
-                            <div className="col-5">
-                                <select type="select" name="addresscountry" className="form-control" placeholder="country"
-                                value={country} onChange={(e) => {setCountry(e.target.value);}} required>
-                                    <Optionlist options={countries}/>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-3"></div>
-                            <div className="col-6">
-                                <input type="submit" className={"form-control " + style.big_info_submit} onClick={handleSubmit}/>
-                            </div>
+                    <div className="row mb-2">
+                        <Input name="addressstreet" label="Street" type="text" validators={[isString]} onChange={setStreet} classNames={{"label": "col-3", "input": "col-7"}} value={street} placeholder={"street"}/>
+                    </div>
+                    <div className="row mb-2">
+                        <Input name="addresssnbr" label="nr°" type="number" validators={[]} onChange={setNbr} classNames={{"label": "col-3", "input": "col-4"}} value={nbr} placeholder={"24"}/>
+                    </div>
+                    <div className="row mb-2">
+                        <Input name="addresszip" label="Zip" type="number" validators={[]} onChange={setZip} classNames={{"label": "col-3", "input": "col-4"}} value={zip} placeholder={"1234"}/>
+                    </div>
+                    <div className="row mb-2">
+                        <Input name="addresscounty" label="County" type="text" validators={[isString]} onChange={setCounty} classNames={{"label": "col-3", "input": "col-6"}} value={county} placeholder={"county"}/>
+                    </div>
+                    <div className="row mb-4">
+                        <Select name="addresscountry" label="country" value={country} optionList={<><option defaultValue={true}></option><Optionlist options={countries}/></>} onChange={updateSelect} classNames={{"label": "col-3", "input": "col-5"}}/>
+                    </div>
+                    <div className="row">
+                        <div className="col-3"></div>
+                        <div className="col-6">
+                            <input type="submit" className={"form-control " + style.big_info_submit} onClick={handleSubmit}/>
                         </div>
                     </div>
                 </form>

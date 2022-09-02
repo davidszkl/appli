@@ -8,3 +8,5 @@ class Address(db.Model):
     addresszip     = db.Column(db.String(50), nullable=False)
     addresscounty  = db.Column(db.String(50), nullable=False)
     addresscountry = db.Column(db.String(50), nullable=False)
+
+    db.UniqueConstraint("addressstreet", "addressnumber", "addresszip", "addresscounty", "addresscountry", name="unique_address")

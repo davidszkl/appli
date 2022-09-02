@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import axios from 'axios';
 
 import PartyTitleForm from './party_title_form';
-import AddressForm from '../generic/address_form';
-import PartyInfoForm from './party_info_form';
+import PartyInfoForm  from './party_info_form';
+import AddressForm    from '../generic/address_form';
 
 
 const CreatePartyRoot = () => {
@@ -44,6 +44,13 @@ const CreatePartyRoot = () => {
             partysexes: e.partysexes
         }))
 
+        setStage("send");
+    }
+
+    useEffect(() => {
+        if (stage !== 'send')
+            return
+
         const headers = {
             headers:{
                 'Access-Control-Allow-Origin': "*",
@@ -59,8 +66,7 @@ const CreatePartyRoot = () => {
             console.log(e);
         })
 
-        
-    }
+    }, [stage])
 
     return (
         <>

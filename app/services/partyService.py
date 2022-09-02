@@ -21,6 +21,7 @@ class PartyService:
         address = addressForm.formToEntity()
         party = partyform.formToEntity()
         party.address = address
+
         for sex in partysexes:
             party.addSex(Sex.query.filter_by(sexname=sex).first())
 

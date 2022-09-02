@@ -1,6 +1,7 @@
 from flask import jsonify
 
 from app import db
+from app.models.address import Address
 from app.models.user import User
 from app.dtos.userDto import UserDTO
 
@@ -22,6 +23,8 @@ class UserService:
     def insert_one(self, userForm: UserRegisterForm, addressForm: AddressCreateForm):
         address = addressForm.formToEntity()
         user = userForm.formToEntity()
+
+        address_existing = Address.query.filter_by(address)
         user.address = address
         user.userpassword = bcrypt.hashpw(user.userpassword.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 

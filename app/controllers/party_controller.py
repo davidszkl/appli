@@ -32,10 +32,16 @@ def  sexes(sexservice: SexService):
 def createParty(partyservice: PartyService):
     addressForm = AddressCreateForm.from_json(request.json) 
     partyForm   = PartyCreateForm.from_json(request.json)
-    partySexes  = request.json['partysexes']
-    partyTags   = request.json['partytags']
+    partySexes  = request.json.get('partysexes', [])
+    partyTags   = request.json.get('partytags', [])
 
     tagsrv = TagService()
     tagsrv.insert_many(partyTags)
 
-    partyservice.insert_one(partyForm, addressForm, partySexes, partyTags)
+    if not addressForm.validate():
+        return jsonify({"errors": addressForm.errors})
+         
+    if not partyForm.validate():
+        return jsonify({"errors": partyForm.errors})
+    
+    return partyservice.insert_one(partyForm, addressForm, partySexes, partyTags)
